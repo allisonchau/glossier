@@ -23,15 +23,19 @@
 >python load_data.py [s3 bucket link]
 
 **Example run status output:**
+```
 >Connecting to PSQL...
 >Loading data...
 >Loaded 3 file(s) into orders__2017_12
 >Loaded 1 file(s) into orders__2017_10
 >Loaded 3625 record(s) into order_line_item_mapping
 >Loaded 23 record(s) into user_stats
+```
 
 **Example of final tables within PSQL:**
+
                  List of relations
+
  Schema |          Name           | Type  |  Owner
 --------+-------------------------+-------+---------
  public | order_line_item_mapping | table | allison
@@ -40,5 +44,10 @@
  public | user_stats              | table | allison
 
  
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3
+
 
 
