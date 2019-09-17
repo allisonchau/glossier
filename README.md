@@ -20,4 +20,5 @@
 - Update user stats
 
 **To run:**
-python load_data.py [s3 bucket link]
+```python load_data.py [s3 bucket link]
+```
