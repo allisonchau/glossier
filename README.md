@@ -36,18 +36,14 @@
 
                  List of relations
 
- Schema |          Name           | Type  |  Owner
---------+-------------------------+-------+---------
- public | order_line_item_mapping | table | allison
- public | orders__2017_10         | table | allison
- public | orders__2017_12         | table | allison
- public | user_stats              | table | allison
+ Schema | Name
+ ---|---
+ public | order_line_item_mapping 
+ public | orders__2017_10         
+ public | orders__2017_12         
+ public | user_stats              
 
- 
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
+
 
 
 
