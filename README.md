@@ -12,12 +12,12 @@
 - First time: create new tables and load the transformed data
 - ETL should run daily, so update tables with new information
 
--Python script to:
--Create tables in PSQL
 
 -Python script to:
--Load filename from s3 bucket
--Check if filename is loaded
--Update the order data and store in PSQL
--Update line item data
--Update user stats
+- Load filename and file object from s3 bucket
+- Append the order data and store in PSQL
+- Append line item data
+- Update user stats
+
+**To run:**
+python load_data.py [s3 bucket link]
