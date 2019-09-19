@@ -5,19 +5,23 @@
 1. Extract: s3 bucket containing data in raw JSON format is provided at https://s3.amazonaws.com/data-eng-homework/v1/data.zip 
 
 2. Transform: 
+- Create order - line item mapping table
 - Date variables with time zone extracted, standardize w/ utc time
-- Grouped and established hierarchy of vars
+- Create new variables to track user metadata (total days, total spend, total orders)
 
-3. Load:
-- First time: create new tables and load the transformed data
-- ETL should run daily, so update tables with new information
+3. Load into PSQL tables:
+- Append unique order rows to orders__year_month tables
+- Append unique line item rows to order_line_item_mapping table
+- Append new users to user_stats table
+- Create user_staging table to hold existing users and update their records
 
+##### Logic for updating user_stats table
+- Queries are stored in 'update_user_table_queries.py', which is accessed from the main script 'load_data.py'
+```python
+main function will 
+if user_id exists in user_stats
 
--Python script to:
-- Load filename and file object from s3 bucket
-- Append the order data and store in PSQL
-- Append line item data
-- Update user stats
+```
 
 **To run:**
 >python load_data.py [s3 bucket link]
@@ -29,7 +33,9 @@
 >Loaded 3 file(s) into orders__2017_12
 >Loaded 1 file(s) into orders__2017_10
 >Loaded 3625 record(s) into order_line_item_mapping
->Loaded 23 record(s) into user_stats
+>Loaded 8 record(s) into user_stats
+>Loaded 34 record(s) into user_staging
+>user_stats status: UPDATE 34
 ```
 
 **Example of final tables within PSQL:**
@@ -39,9 +45,11 @@
  Schema | Name
  ---|---
  public | order_line_item_mapping 
- public | orders__2017_10         
+ public | orders__2017_10
+ public | orders__2017_11         
  public | orders__2017_12         
- public | user_stats              
+ public | user_stats  
+ public | user_staging            
 
 
 
