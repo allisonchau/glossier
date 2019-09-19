@@ -90,18 +90,14 @@ def main(args):
     fn_count=0
     month=''
     def load_order_row(orderrows, year_month):
-        # Function to load and return order data in a daily file
-        # Also, to update global variables line_item_dict and order_dict
-        # Probably a better way to do this
-
+        # Function to load and append order data in a daily file
+        # Also, to update global variable user_dict
         order_dict={}
         line_item_dict={}
 
         for orderrow in orderrows:
             # Declare useful vars
             order_id=orderrow['id']
-            if order_id in existing_order_ids:
-                continue
             user_id=orderrow['user_id']
             processed_at=convert_timestring_utc(orderrow['processed_at'])
             total_price=float(orderrow['total_price'])
@@ -192,6 +188,7 @@ def main(args):
     # Dict to update the existing records
     user_staging_dict={k:v for k,v in user_dict.items() 
                         if k in existing_user_ids}
+    # Create new staging table, 'replacing' any existing ones rather than appending
     append_dict_to_psql(user_staging_dict,'user_staging',engine,action='replace',verbose=True)
     # Need to make psycopg2 cursor to execute an update statement
     conn = psycopg2.connect("dbname='%s' port='%s' user='%s' \
