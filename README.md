@@ -20,10 +20,11 @@
 - Queries are stored in 'update_user_table_queries.py', which updates the user_stats table with new data from the user_staging table. These queries are accessed from the main script 'load_data.py'.
 ```python
 # global variable user_dict stores and updates all user records found in given s3 bucket url
-if user_id exists in user_stats (PSQL table):
-	add user_id to user_staging
-else (user is new):
-	append to user_stats table
+for each user_id in user_dict:
+	if user_id exists in user_stats (PSQL table):
+		add user_id to user_staging
+	else (user is new):
+		append to user_stats table
 finally, update the user_stats table with the user_staging table, using max_processed_at to ensure the older data is replaced with newest data
 ```
 
