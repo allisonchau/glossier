@@ -19,7 +19,7 @@
 ##### Logic for updating user_stats table for daily updating
 - Queries are stored in 'update_user_table_queries.py', which updates the user_stats table with new data from the user_staging table. These queries are accessed from the main script 'load_data.py'.
 ```python
-global variable user_dict stores and updates all user records found in given s3 bucket url
+<!-- global variable user_dict stores and updates all user records found in given s3 bucket url -->
 if user_id exists in user_stats (PSQL table):
 	add user_id to user_staging
 else (user is new):
