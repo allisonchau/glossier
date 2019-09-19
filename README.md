@@ -1,6 +1,6 @@
 # Glossier ETL Project
 
-#### ETL for retail order data so that business analysts can query using SQL from a PSQL database.
+#### ETL for retail order data so that business analysts can query using SQL from a PSQL database. This program will create new tables if they do not already exist. This also supports daily loading of new data. 
 
 1. Extract: s3 bucket containing data in raw JSON format is provided at https://s3.amazonaws.com/data-eng-homework/v1/data.zip 
 
@@ -10,17 +10,21 @@
 - Create new variables to track user metadata (total days, total spend, total orders)
 
 3. Load into PSQL tables:
+- Bypass all records that already exist in the tables
 - Append unique order rows to orders__year_month tables
 - Append unique line item rows to order_line_item_mapping table
 - Append new users to user_stats table
 - Create user_staging table to hold existing users and update their records
 
-##### Logic for updating user_stats table
-- Queries are stored in 'update_user_table_queries.py', which is accessed from the main script 'load_data.py'
+##### Logic for updating user_stats table for daily updating
+- Queries are stored in 'update_user_table_queries.py', which updates the user_stats table with new data from the user_staging table. These queries are accessed from the main script 'load_data.py'.
 ```python
-main function will 
-if user_id exists in user_stats
-
+global variable user_dict stores and updates all user records found in given s3 bucket url
+if user_id exists in user_stats (PSQL table):
+	add user_id to user_staging
+else (user is new):
+	append to user_stats table
+finally, update the user_stats table with the user_staging table, using max_processed_at to ensure the older data is replaced with newest data
 ```
 
 **To run:**
